@@ -15,7 +15,7 @@ const fs = require('fs')
     const octokit = github.getOctokit(githubToken)
 
     const commentToken = core.getInput('comment-token')
-    const re = new RegExp(`^<!-- ${commentToken} -->[^<]*<!-- \/${commentToken} -->`, 'm');
+    const re = new RegExp(`<!-- ${commentToken} -->(?!\<\!).*<!-- \/${commentToken} -->`);
     const script = core.getInput('script')
     let myOutput = '';
     await fs.writeFileSync('sh-script.sh', script)
