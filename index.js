@@ -33,12 +33,14 @@ const fs = require('fs')
     })
     const primerComments = issues.filter(c => c.user.login == 'primer-css')
     if (primerComments.length) {
+      let newBody = comment.body.replace(re, `<!-- ${commentToken} -->\n${myOutput}\n<!-- /${commentToken} -->`)
+      console.log(comment.body, newBody, myOutput)
       const comment = primerComments[0]
       await octokit.issues.updateComment({
         comment_id: comment.id,
         owner: github.context.repo.owner,
         repo: github.context.repo.repo,
-        body: comment.body.replace(re, `<!-- ${commentToken} -->\n${myOutput}\n<!-- /${commentToken} -->`)
+        body: newBody
       })
     }
   } catch (error) {
