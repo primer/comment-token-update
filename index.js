@@ -38,7 +38,7 @@ const fs = require('fs')
         comment_id: comment.id,
         owner: github.context.repo.owner,
         repo: github.context.repo.repo,
-        body: comment.body.replace(re, `<!-- ${commentToken} -->\n<pre>${myOutput}</pre>\n<!-- /${commentToken} -->`)
+        body: comment.body.replace(re, `<!-- ${commentToken} -->\n${myOutput}\n<!-- /${commentToken} -->`)
       })
     }
   } catch (error) {
