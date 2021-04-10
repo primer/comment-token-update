@@ -11,17 +11,13 @@ const fs = require('fs')
       core.setFailed("Please add the GITHUB_TOKEN to the changesets action");
       return;
     }
+        
+    if (!github.context.issue.number) {
+      return;
+    }
 
     const octokit = github.getOctokit(githubToken)
     
-    function getPRId() {
-      const ev = JSON.parse(
-        fs.readFileSync(process.env.GITHUB_EVENT_PATH, 'utf8')
-      )
-      console.log(ev)
-      return ev.pull_request.number
-    }
-
     const commentToken = core.getInput('comment-token')
     const re = new RegExp(`<!-- ${commentToken} -->[\\w\\W]*<!-- \/${commentToken} -->`);
     const script = core.getInput('script')
@@ -35,7 +31,7 @@ const fs = require('fs')
     };
     await exec.exec('sh sh-script.sh', [], options)
     const { data: issues } = await octokit.issues.listComments({
-      issue_number: github.context.issue.number || getPRId(),
+      issue_number: github.context.issue.number,
       owner: github.context.repo.owner,
       repo: github.context.repo.repo
     })
