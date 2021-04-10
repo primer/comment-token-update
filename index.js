@@ -18,6 +18,7 @@ const fs = require('fs')
       const ev = JSON.parse(
         fs.readFileSync(process.env.GITHUB_EVENT_PATH, 'utf8')
       )
+      console.log(ev)
       return ev.pull_request.number
     }
 
