@@ -1,0 +1,15 @@
+name: 'Comment Token Update'
+description: 'Replaces a token in an existing comment with provided input'
+inputs:
+  comment-token:
+    description: 'Token to replace in comment text'
+    required: true
+    default: ''
+  script:
+    description: 'script to get output of'
+    required: true
+    default: ''
+
+runs:
+  using: 'node12'
+  main: 'index.js'
