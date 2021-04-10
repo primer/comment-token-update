@@ -15,7 +15,7 @@ const fs = require('fs')
     const octokit = github.getOctokit(githubToken)
 
     const commentToken = core.getInput('comment-token')
-    const re = new RegExp(`<!-- ${commentToken} -->[\w\W]*<!-- \/${commentToken} -->`);
+    const re = new RegExp(`<!-- ${commentToken} -->[\\w\\W]*<!-- \/${commentToken} -->`);
     const script = core.getInput('script')
     let myOutput = '';
     await fs.writeFileSync('sh-script.sh', script)
@@ -35,7 +35,7 @@ const fs = require('fs')
     if (primerComments.length) {
       const comment = primerComments[0]
       let newBody = comment.body.replace(re, `<!-- ${commentToken} -->\n${myOutput}\n<!-- /${commentToken} -->`)
-      console.log(comment.body, newBody, myOutput)
+      console.log(comment.body, newBody)
       await octokit.issues.updateComment({
         comment_id: comment.id,
         owner: github.context.repo.owner,
