@@ -23,6 +23,7 @@ const fs = require('fs')
     const script = core.getInput('script')
     let myOutput = '';
     await fs.writeFileSync('sh-script.sh', script)
+    console.log(script);
     const options = {};
     options.listeners = {
       stdout: (data) => {
