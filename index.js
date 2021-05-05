@@ -30,7 +30,7 @@ const fs = require('fs')
         myOutput += data.toString();
       }
     };
-    await exec.exec('sh sh-script.sh', [], options)
+    await exec.exec('sh', ['sh-script.sh'], options)
     const { data: issues } = await octokit.issues.listComments({
       issue_number: github.context.issue.number,
       owner: github.context.repo.owner,
