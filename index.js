@@ -35,7 +35,7 @@ const fs = require('fs')
       owner: github.context.repo.owner,
       repo: github.context.repo.repo
     })
-    const primerComments = issues.filter(c => c.user.login == 'primer-css')
+    const primerComments = issues.filter(c => c.user.login == process.env.GITHUB_USER)
     if (primerComments.length) {
       const comment = primerComments[0]
       let newBody = comment.body.replace(re, `<!-- ${commentToken} -->\n${myOutput}\n<!-- /${commentToken} -->`)
