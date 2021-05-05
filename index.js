@@ -23,14 +23,13 @@ const fs = require('fs')
     const script = core.getInput('script')
     let myOutput = '';
     await fs.writeFileSync('sh-script.sh', script)
-    console.log(script);
     const options = {};
     options.listeners = {
       stdout: (data) => {
         myOutput += data.toString();
       }
     };
-    await exec.exec('sh', ['sh-script.sh'], options)
+    await exec.exec('bash', ['sh-script.sh'], options)
     const { data: issues } = await octokit.issues.listComments({
       issue_number: github.context.issue.number,
       owner: github.context.repo.owner,
